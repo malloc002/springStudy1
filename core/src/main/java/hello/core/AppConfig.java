@@ -8,22 +8,31 @@ import hello.core.member.MemberServiceImpl;
 import hello.core.member.MemoryMemberRepository;
 import hello.core.order.OrderService;
 import hello.core.order.OrderServiceImpl;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+//구성 정보를 나타내는 것
+@Configuration
 public class AppConfig {
 
+    //Bean 어노테이션 쓰면 Spring Container에 저장됨
+    @Bean
     public MemberService memberService(){
         return new MemberServiceImpl(memberRepository());
     }
 
-    private MemberRepository memberRepository(){
+    @Bean
+    public MemberRepository memberRepository(){
         return new MemoryMemberRepository();
     }
 
+    @Bean
     public OrderService orderService(){
         return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
 
-    private DiscountPolicy discountPolicy(){
+    @Bean
+    public DiscountPolicy discountPolicy(){
         return new RateDiscountPolicy();
     }
 
