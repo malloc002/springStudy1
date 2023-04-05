@@ -14,25 +14,35 @@ import org.springframework.context.annotation.Configuration;
 //구성 정보를 나타내는 것
 @Configuration
 public class AppConfig {
+    //@Bean memberService -> new MemoryMemberRepository()
+    //@Bean orderService -> new MemoryMemberRepository()
+
+    //call AppConfig.memberService
+    //call AppConfig.memberRepository
+    //call AppConfig.orderService
 
     //Bean 어노테이션 쓰면 Spring Container에 저장됨
     @Bean
     public MemberService memberService(){
+        System.out.println("call AppConfig.memberService");
         return new MemberServiceImpl(memberRepository());
     }
 
     @Bean
     public MemberRepository memberRepository(){
+        System.out.println("call AppConfig.memberRepository");
         return new MemoryMemberRepository();
     }
 
     @Bean
     public OrderService orderService(){
+        System.out.println("call AppConfig.orderService");
         return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
 
     @Bean
     public DiscountPolicy discountPolicy(){
+        System.out.println("call AppConfig.discountPolicy");
         return new RateDiscountPolicy();
     }
 
